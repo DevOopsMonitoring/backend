@@ -1,5 +1,5 @@
 import factory
-from api.models import User
+from src.models import User
 
 
 class UserFactory(factory.Factory):
