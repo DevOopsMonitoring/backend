@@ -8,7 +8,7 @@ from src.api.resources import PositionList, PositionResource
 from src.api.resources import SensorResource, SensorList
 
 
-blueprint = Blueprint("src", __name__, url_prefix="/src/v1")
+blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
 api = Api(blueprint)
 
 
