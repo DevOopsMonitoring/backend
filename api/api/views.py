@@ -5,6 +5,7 @@ from api.api.resources import UserResource, UserList
 from api.api.resources import ServerList, ServerResource, generate_new_token
 from api.api.resources import CompanyList, CompanyResource
 from api.api.resources import PositionList, PositionResource
+from api.api.resources import SensorResource, SensorList
 
 
 blueprint = Blueprint("api", __name__, url_prefix="/api/v1")
@@ -23,6 +24,9 @@ api.add_resource(CompanyList, '/companies', endpoint='companies')
 
 api.add_resource(PositionResource, "/positions/<int:position_id>", endpoint="position_by_id")
 api.add_resource(PositionList, '/positions', endpoint='positions')
+
+api.add_resource(SensorResource, "/sensors/<int:sensor_id>", endpoint="sensor_by_id")
+api.add_resource(SensorList, '/sensors', endpoint='sensors')
 
 
 @blueprint.errorhandler(ValidationError)

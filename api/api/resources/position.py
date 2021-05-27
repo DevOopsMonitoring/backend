@@ -11,7 +11,6 @@ class PositionResource(Resource):
     method_decorators = [jwt_required()]
 
     def get(self, position_id):
-        print(position_id)
         schema = PositionSchema()
         position = Position.query.get_or_404(position_id)
         return {"position": schema.dump(position)}

@@ -11,7 +11,6 @@ class CompanyResource(Resource):
     method_decorators = [jwt_required()]
 
     def get(self, company_id):
-        print(company_id)
         schema = CompanySchema()
         company = Company.query.get_or_404(company_id)
         return {"company": schema.dump(company)}
