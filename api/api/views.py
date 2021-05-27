@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify
 from flask_restful import Api
 from marshmallow import ValidationError
 from api.api.resources import UserResource, UserList
-from api.api.resources import ServerList, ServerResource
+from api.api.resources import ServerList, ServerResource, generate_new_token
 from api.api.resources import CompanyList, CompanyResource
 from api.api.resources import PositionList, PositionResource
 
@@ -16,6 +16,7 @@ api.add_resource(UserList, "/users", endpoint="users")
 
 api.add_resource(ServerResource, "/servers/<int:server_id>", endpoint="server_by_id")
 api.add_resource(ServerList, '/servers', endpoint='servers')
+blueprint.route("/servers/<int:server_id>/refresh", methods=["POST"])(generate_new_token)
 
 api.add_resource(CompanyResource, "/companies/<int:company_id>", endpoint="company_by_id")
 api.add_resource(CompanyList, '/companies', endpoint='companies')

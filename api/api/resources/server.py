@@ -11,7 +11,6 @@ class ServerResource(Resource):
     method_decorators = [jwt_required()]
 
     def get(self, server_id):
-        print(server_id)
         schema = ServerSchema()
         user = Server.query.get_or_404(server_id)
         return {"server": schema.dump(user)}
@@ -51,3 +50,12 @@ class ServerList(Resource):
         db.session.commit()
 
         return {"msg": "server created", "server": schema.dump(server)}, 201
+
+
+@jwt_required()
+def generate_new_token(server_id):
+    server = Server.query.get_or_404(server_id)
+    server.refresh_token()
+    db.session.commit()
+    schema = ServerSchema()
+    return {"server": schema.dump(server)}
