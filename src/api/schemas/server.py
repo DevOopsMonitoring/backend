@@ -10,3 +10,4 @@ class ServerSchema(ma.SQLAlchemyAutoSchema):
         model = Server
         sqla_session = db.session
         load_instance = True
+        include_fk = True

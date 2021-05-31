@@ -3,6 +3,7 @@ from src.api.schemas.position import PositionSchema
 from src.api.schemas.server import ServerSchema
 from src.api.schemas.user import UserSchema
 from src.api.schemas.sensor import SensorSchema
+from src.api.schemas.reading_rule import ReadingRuleSchema
 
 
 __all__ = [
@@ -11,4 +12,5 @@ __all__ = [
     CompanySchema,
     PositionSchema,
     SensorSchema,
+    ReadingRuleSchema,
 ]

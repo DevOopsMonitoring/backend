@@ -17,6 +17,9 @@ def create_app(testing=False):
     configure_extensions(app)
     register_blueprints(app)
 
+    app.config["PROPAGATE_EXCEPTIONS"] = True
+    app.config['TRAP_HTTP_EXCEPTIONS'] = True
+
     return app
 
 

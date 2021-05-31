@@ -1,6 +1,7 @@
-from src.extensions import db
-from string import ascii_lowercase, digits
 from random import choices
+from string import ascii_lowercase, digits
+
+from src.extensions import db
 
 
 class Server(db.Model):
@@ -9,6 +10,7 @@ class Server(db.Model):
     description = db.Column(db.String(512), nullable=True)
     address = db.Column(db.String(128), nullable=False)
     token = db.Column(db.String(16), nullable=False)
+    reading_rules = db.relationship('ReadingRule', backref='server', lazy=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

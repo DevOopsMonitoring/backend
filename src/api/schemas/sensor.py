@@ -9,3 +9,4 @@ class SensorSchema(ma.SQLAlchemyAutoSchema):
         model = Sensor
         sqla_session = db.session
         load_instance = True
+        include_fk = True

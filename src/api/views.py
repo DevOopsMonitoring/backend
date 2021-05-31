@@ -6,11 +6,11 @@ from src.api.resources import ServerList, ServerResource, generate_new_token
 from src.api.resources import CompanyList, CompanyResource
 from src.api.resources import PositionList, PositionResource
 from src.api.resources import SensorResource, SensorList
+from src.api.resources import ReadingRuleResource, ReadingRuleList
 
 
 blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
 api = Api(blueprint)
-
 
 api.add_resource(UserResource, "/users/<int:user_id>", endpoint="user_by_id")
 api.add_resource(UserList, "/users", endpoint="users")
@@ -28,7 +28,11 @@ api.add_resource(PositionList, '/positions', endpoint='positions')
 api.add_resource(SensorResource, "/sensors/<int:sensor_id>", endpoint="sensor_by_id")
 api.add_resource(SensorList, '/sensors', endpoint='sensors')
 
+api.add_resource(ReadingRuleResource, "/rule/<server_token>", endpoint="reading_rule_by_token")
+api.add_resource(ReadingRuleResource, "/rule/<int:rule_id>", endpoint="reading_rule_by_id")
+api.add_resource(ReadingRuleList, '/rule', endpoint='reading_rules')
+
 
 @blueprint.errorhandler(ValidationError)
 def handle_marshmallow_error(e):
-    return jsonify(e.messages), 400
+    return jsonify({'error': e.messages}), 400
