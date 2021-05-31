@@ -33,10 +33,9 @@ class UserResource(Resource):
 
 
 class UserList(Resource):
-
     @jwt_required()
     def get(self):
-        schema = UserSchema(many=True, exclude=['email', 'active'])
+        schema = UserSchema(many=True, exclude=['email', 'company', 'position'])
         query = User.query
         for key, item in request.args.items():
             query = query.filter(getattr(User, key).like(item))

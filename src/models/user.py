@@ -9,6 +9,8 @@ class User(db.Model):
     email = db.Column(db.String(80), unique=True, nullable=False)
     _password = db.Column('password', db.String(255), nullable=False)
     active = db.Column(db.Boolean, default=True)
+    position_id = db.Column(db.Integer, db.ForeignKey('position.id'), nullable=True)
+    company_id = db.Column(db.Integer, db.ForeignKey('company.id'), nullable=True)
 
     @hybrid_property
     def password(self):
