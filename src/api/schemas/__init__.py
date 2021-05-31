@@ -4,6 +4,7 @@ from src.api.schemas.server import ServerSchema
 from src.api.schemas.user import UserSchema
 from src.api.schemas.sensor import SensorSchema
 from src.api.schemas.reading_rule import ReadingRuleSchema
+from src.api.schemas.read_data import ReadingDataSchema
 
 
 __all__ = [
@@ -13,4 +14,5 @@ __all__ = [
     PositionSchema,
     SensorSchema,
     ReadingRuleSchema,
+    ReadingDataSchema,
 ]

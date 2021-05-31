@@ -11,6 +11,7 @@ class Server(db.Model):
     address = db.Column(db.String(128), nullable=False)
     token = db.Column(db.String(16), nullable=False)
     reading_rules = db.relationship('ReadingRule', backref='server', lazy=True)
+    read_data = db.relationship('ReadData', backref='server', lazy=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

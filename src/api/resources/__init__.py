@@ -4,6 +4,7 @@ from src.api.resources.reading_rule import ReadingRuleResource, ReadingRuleList
 from src.api.resources.sensor import SensorList, SensorResource
 from src.api.resources.server import ServerList, ServerResource, generate_new_token
 from src.api.resources.user import UserResource, UserList
+from src.api.resources.read_data import ReadDataResource
 
 
 __all__ = [
@@ -25,4 +26,6 @@ __all__ = [
 
     ReadingRuleList,
     ReadingRuleResource,
+
+    ReadDataResource,
 ]

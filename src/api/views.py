@@ -1,13 +1,14 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api
 from marshmallow import ValidationError
-from src.api.resources import UserResource, UserList
-from src.api.resources import ServerList, ServerResource, generate_new_token
+
 from src.api.resources import CompanyList, CompanyResource
 from src.api.resources import PositionList, PositionResource
-from src.api.resources import SensorResource, SensorList
 from src.api.resources import ReadingRuleResource, ReadingRuleList
-
+from src.api.resources import SensorResource, SensorList
+from src.api.resources import ServerList, ServerResource, generate_new_token
+from src.api.resources import UserResource, UserList
+from src.api.resources import ReadDataResource
 
 blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
 api = Api(blueprint)
@@ -32,6 +33,8 @@ api.add_resource(ReadingRuleResource, "/rule/<server_token>", endpoint="reading_
 api.add_resource(ReadingRuleResource, "/rule/<int:rule_id>", endpoint="reading_rule_by_id")
 api.add_resource(ReadingRuleList, '/rule', endpoint='reading_rules')
 
+api.add_resource(ReadDataResource, "/data/<int:server_id>", endpoint="read_data_by_id")
+api.add_resource(ReadDataResource, "/data/<server_token>", endpoint="read_data_by_token")
 
 @blueprint.errorhandler(ValidationError)
 def handle_marshmallow_error(e):
