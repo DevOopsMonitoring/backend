@@ -19,6 +19,7 @@ apispec = {extras = ["yaml"], version = "*"}
 apispec-webframeworks = "*"
 tox = "*"
 Flask-Cors = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
