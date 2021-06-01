@@ -1,5 +1,6 @@
 from random import choices
 from string import ascii_lowercase, digits
+from .equipment import specifications
 
 from src.extensions import db
 
@@ -12,6 +13,7 @@ class Server(db.Model):
     token = db.Column(db.String(16), nullable=False)
     reading_rules = db.relationship('ReadingRule', backref='server', lazy=True)
     read_data = db.relationship('ReadData', backref='server', lazy=True)
+    specifications = db.relationship('Equipment', secondary=specifications, lazy='subquery', backref=db.backref('pages', lazy=True))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -11,8 +11,6 @@ from src.models import ReadingRule, Server, Sensor
 
 
 class ReadingRuleResource(Resource):
-    method_decorators = [jwt_required()]
-
     def get(self, server_token):
         schema = ReadingRuleSchema(many=True, exclude=['server'])
         server = Server.query.filter_by(token=server_token).first()
@@ -22,6 +20,7 @@ class ReadingRuleResource(Resource):
             snmp.append(d['sensor']['snmp'])
         return {"rules": snmp}
 
+    @jwt_required()
     def put(self, rule_id):
         schema = ReadingRuleSchema(partial=True)
         rule = ReadingRule.query.get_or_404(rule_id)
@@ -31,6 +30,7 @@ class ReadingRuleResource(Resource):
 
         return {"msg": "Reading rule updated", "rule": schema.dump(rule)}
 
+    @jwt_required()
     def delete(self, rule_id):
         rule = ReadingRule.query.get_or_404(rule_id)
         db.session.delete(rule)

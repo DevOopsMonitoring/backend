@@ -10,8 +10,7 @@ from src.models import ReadData, ReadingRule, Server
 
 
 class ReadDataResource(Resource):
-    method_decorators = [jwt_required()]
-
+    @jwt_required()
     def get(self, server_id):
         schema = ReadingDataSchema(many=True)
         data = ReadData.query.filter_by(server_id=server_id)
