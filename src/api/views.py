@@ -10,7 +10,7 @@ from src.api.resources import ServerList, ServerResource, generate_new_token
 from src.api.resources import UserResource, UserList
 from src.api.resources import ReadDataResource
 
-blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
+blueprint = Blueprint("src", __name__, url_prefix="/v1")
 api = Api(blueprint)
 
 api.add_resource(UserResource, "/users/<int:user_id>", endpoint="user_by_id")
