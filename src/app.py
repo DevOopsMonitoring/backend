@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 
 from src import api
 from src import auth
@@ -16,6 +17,7 @@ def create_app(testing=False):
 
     configure_extensions(app)
     register_blueprints(app)
+    CORS(app)
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config['TRAP_HTTP_EXCEPTIONS'] = True
