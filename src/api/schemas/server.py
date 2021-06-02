@@ -9,6 +9,9 @@ class ServerSchema(ma.SQLAlchemyAutoSchema):
     specifications = ma.Nested(EquipmentSchema, many=True, dump_only=True)
     specifications_id = ma.List(ma.Int, load_only=True)
 
+    user_id = ma.Int(load_only=True)
+    user = ma.Nested('UserSchema', dump_only=True, exclude=('servers', ))
+
     class Meta:
         model = Server
         sqla_session = db.session

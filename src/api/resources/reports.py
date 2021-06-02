@@ -22,7 +22,6 @@ def number_employees_in_companies_print():
     pdf.set_font('DejaVu', '', 14)
 
     companies = Company.query.all()
-    result = []
     for i, company in enumerate(companies):
         text = f'В компании "{company.name}" работает {len(company.users)} человек'
         pdf.cell(200, 10, txt=text, ln=i+1, align="L")

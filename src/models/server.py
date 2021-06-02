@@ -14,6 +14,7 @@ class Server(db.Model):
     reading_rules = db.relationship('ReadingRule', backref='server', lazy=True)
     read_data = db.relationship('ReadData', backref='server', lazy=True)
     specifications = db.relationship('Equipment', secondary=specifications, lazy='subquery', backref=db.backref('pages', lazy=True))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

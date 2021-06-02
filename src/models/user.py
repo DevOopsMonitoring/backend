@@ -11,6 +11,7 @@ class User(db.Model):
     active = db.Column(db.Boolean, default=True)
     position_id = db.Column(db.Integer, db.ForeignKey('position.id'), nullable=True)
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'), nullable=True)
+    servers = db.relationship('Server', backref='user', lazy=True)
 
     @hybrid_property
     def password(self):

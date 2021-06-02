@@ -2,6 +2,7 @@ from src.extensions import ma, db
 from src.models import User
 from .company import CompanySchema
 from .position import PositionSchema
+from .server import ServerSchema
 
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
@@ -13,6 +14,9 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 
     position_id = ma.Int(load_only=True)
     company_id = ma.Int(load_only=True)
+
+    servers = ma.Nested(ServerSchema, many=True, dump_only=True, exclude=('user', ))
+    servers_id = ma.List(ma.Int, load_only=True, default=[])
 
     class Meta:
         model = User
