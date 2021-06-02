@@ -32,6 +32,8 @@ class ReadDataResource(Resource):
         if not server:
             return {'msg': 'Token not found'}, 403
         json = request.get_json()
+        if not ReadingRule.query.filter_by(server_id=server.id, sensor_id=json['sensor_id']).count():
+            return {"msg": "Reading rule not found"}, 404
         data = ReadData(data=datetime.now(), server_id=server.id, sensor_id=json['sensor_id'], value=json['value'])
 
         db.session.add(data)
