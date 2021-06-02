@@ -10,6 +10,7 @@ from src.api.resources import ServerList, ServerResource, generate_new_token
 from src.api.resources import UserResource, UserList
 from src.api.resources import ReadDataResource
 from .resources import EquipmentList, EquipmentResource
+from .resources import reports
 
 
 blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
@@ -40,6 +41,9 @@ api.add_resource(ReadDataResource, "/data/<server_token>", endpoint="read_data_b
 
 api.add_resource(EquipmentResource, "/equipments/<int:equipment_id>", endpoint="equipments_by_id")
 api.add_resource(EquipmentList, "/equipments", endpoint="equipments")
+
+blueprint.route("/reports/number_employees_in_companies", methods=["GET"])(reports.number_employees_in_companies)
+blueprint.route("/reports/number_employees_in_companies/print", methods=["GET"])(reports.number_employees_in_companies_print)
 
 
 @blueprint.errorhandler(ValidationError)

@@ -20,6 +20,7 @@ apispec-webframeworks = "*"
 tox = "*"
 Flask-Cors = "*"
 psycopg2 = "*"
+fpdf = "*"
 
 [dev-packages]
 
