@@ -6,6 +6,7 @@ from src.models.user import User
 from src.models.sensor import Sensor
 from src.models.reading_rule import ReadingRule
 from src.models.read_data import ReadData
+from .equipment import Equipment
 
 
 __all__ = [
@@ -17,4 +18,5 @@ __all__ = [
     Sensor,
     ReadingRule,
     ReadData,
+    Equipment,
 ]

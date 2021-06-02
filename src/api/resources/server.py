@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 from src.api.schemas import ServerSchema
-from src.models import Server
+from src.models import Server, Equipment
 from src.extensions import db
 from src.commons.pagination import paginate
 
@@ -19,6 +19,8 @@ class ServerResource(Resource):
         schema = ServerSchema(partial=True)
         server = Server.query.get_or_404(server_id)
         server = schema.load(request.json, instance=server)
+        equipments = Equipment.query.filter(Equipment.id.in_(server.specifications_id)).all()
+        server.specifications += equipments
 
         db.session.commit()
 
@@ -36,7 +38,7 @@ class ServerList(Resource):
     method_decorators = [jwt_required()]
 
     def get(self):
-        schema = ServerSchema(many=True, exclude=['token'])
+        schema = ServerSchema(many=True, exclude=['token', 'specifications'])
         query = Server.query
         for key, item in request.args.items():
             query = query.filter(getattr(Server, key).like(item))

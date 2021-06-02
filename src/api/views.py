@@ -9,6 +9,8 @@ from src.api.resources import SensorResource, SensorList
 from src.api.resources import ServerList, ServerResource, generate_new_token
 from src.api.resources import UserResource, UserList
 from src.api.resources import ReadDataResource
+from .resources import EquipmentList, EquipmentResource
+
 
 blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
 api = Api(blueprint)
@@ -35,6 +37,10 @@ api.add_resource(ReadingRuleList, '/rule', endpoint='reading_rules')
 
 api.add_resource(ReadDataResource, "/data/<int:server_id>", endpoint="read_data_by_id")
 api.add_resource(ReadDataResource, "/data/<server_token>", endpoint="read_data_by_token")
+
+api.add_resource(EquipmentResource, "/equipments/<int:equipment_id>", endpoint="equipments_by_id")
+api.add_resource(EquipmentList, "/equipments", endpoint="equipments")
+
 
 @blueprint.errorhandler(ValidationError)
 def handle_marshmallow_error(e):
