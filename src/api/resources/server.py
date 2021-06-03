@@ -1,10 +1,12 @@
 from flask import request
-from flask_restful import Resource
+from flask import make_response
 from flask_jwt_extended import jwt_required
+from flask_restful import Resource
+
 from src.api.schemas import ServerSchema
-from src.models import Server, Equipment
-from src.extensions import db
 from src.commons.pagination import paginate
+from src.extensions import db
+from src.models import Server, Equipment
 
 
 class ServerResource(Resource):
@@ -61,3 +63,12 @@ def generate_new_token(server_id):
     db.session.commit()
     schema = ServerSchema()
     return {"server": schema.dump(server)}
+
+
+@jwt_required()
+def generate_file(server_id):
+    server = Server.query.get_or_404(server_id)
+    token = server.token
+    static_file = open('collect_script.py', 'r').read()
+    static_file = static_file.format(TOKEN=token)
+    return make_response(static_file, 200, {'Content-Type': 'application/txt'})

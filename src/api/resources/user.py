@@ -21,7 +21,7 @@ class UserResource(Resource):
         user = schema.load(request.json, instance=user)
 
         if hasattr(user, 'servers_id_add'):
-            user.servers += Server.query.filter(Server.id.in_(user.servers_id)).all()
+            user.servers += Server.query.filter(Server.id.in_(user.servers_id_add)).all()
         elif hasattr(user, 'servers_id'):
             user.servers = Server.query.filter(Server.id.in_(user.servers_id)).all()
 

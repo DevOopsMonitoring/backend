@@ -6,7 +6,7 @@ from src.api.resources import CompanyList, CompanyResource
 from src.api.resources import PositionList, PositionResource
 from src.api.resources import ReadingRuleResource, ReadingRuleList
 from src.api.resources import SensorResource, SensorList
-from src.api.resources import ServerList, ServerResource, generate_new_token
+from src.api.resources import ServerList, ServerResource, generate_new_token, generate_file
 from src.api.resources import UserResource, UserList
 from src.api.resources import ReadDataResource
 from .resources import EquipmentList, EquipmentResource
@@ -22,6 +22,7 @@ api.add_resource(UserList, "/users", endpoint="users")
 api.add_resource(ServerResource, "/servers/<int:server_id>", endpoint="server_by_id")
 api.add_resource(ServerList, '/servers', endpoint='servers')
 blueprint.route("/servers/<int:server_id>/refresh", methods=["POST"])(generate_new_token)
+blueprint.route("/servers/<int:server_id>/file", methods=["GET"])(generate_file)
 
 api.add_resource(CompanyResource, "/companies/<int:company_id>", endpoint="company_by_id")
 api.add_resource(CompanyList, '/companies', endpoint='companies')
