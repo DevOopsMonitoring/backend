@@ -17,6 +17,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 
     servers = ma.Nested(ServerSchema, many=True, dump_only=True, exclude=('user', 'description', 'specifications'))
     servers_id = ma.List(ma.Int, load_only=True, default=[])
+    servers_id_add = ma.List(ma.Int, load_only=True, default=[])
 
     class Meta:
         model = User

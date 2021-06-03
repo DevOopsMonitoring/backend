@@ -20,8 +20,10 @@ class UserResource(Resource):
         user = User.query.get_or_404(user_id)
         user = schema.load(request.json, instance=user)
 
-        if hasattr(user, 'servers_id'):
+        if hasattr(user, 'servers_id_add'):
             user.servers += Server.query.filter(Server.id.in_(user.servers_id)).all()
+        elif hasattr(user, 'servers_id'):
+            user.servers = Server.query.filter(Server.id.in_(user.servers_id)).all()
 
         db.session.commit()
 
