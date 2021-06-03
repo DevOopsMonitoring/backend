@@ -38,7 +38,7 @@ class ServerList(Resource):
     method_decorators = [jwt_required()]
 
     def get(self):
-        schema = ServerSchema(many=True, exclude=['token', 'specifications'])
+        schema = ServerSchema(many=True, exclude=['token', 'specifications', 'user'])
         query = Server.query
         for key, item in request.args.items():
             query = query.filter(getattr(Server, key).like(item))

@@ -45,6 +45,9 @@ api.add_resource(EquipmentList, "/equipments", endpoint="equipments")
 blueprint.route("/reports/number_employees_in_companies", methods=["GET"])(reports.number_employees_in_companies)
 blueprint.route("/reports/number_employees_in_companies/print", methods=["GET"])(reports.number_employees_in_companies_print)
 
+blueprint.route("/reports/number_servers_in_companies", methods=["GET"])(reports.number_servers_in_companies)
+blueprint.route("/reports/number_servers_in_companies_print", methods=["GET"])(reports.number_servers_in_companies_print)
+
 
 @blueprint.errorhandler(ValidationError)
 def handle_marshmallow_error(e):

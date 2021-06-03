@@ -16,8 +16,11 @@ class ReadingRuleResource(Resource):
         server = Server.query.filter_by(token=server_token).first()
         rules = ReadingRule.query.filter_by(server_id=server.id)
         snmp = []
-        for d in schema.dump(rules):
-            snmp.append(d['sensor']['snmp'])
+        for rule in rules:
+            snmp.append({
+                'snmp': rule.sensor.snmp,
+                'sensor_id': rule.sensor.id
+            })
         return {"rules": snmp}
 
     @jwt_required()
