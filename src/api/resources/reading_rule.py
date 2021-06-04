@@ -12,14 +12,21 @@ from src.models import ReadingRule, Server, Sensor
 
 class ReadingRuleResource(Resource):
     def get(self, server_token):
-        schema = ReadingRuleSchema(many=True, exclude=['server'])
         server = Server.query.filter_by(token=server_token).first()
         rules = ReadingRule.query.filter_by(server_id=server.id)
         snmp = []
         for rule in rules:
             snmp.append({
                 'snmp': rule.sensor.snmp,
-                'sensor_id': rule.sensor.id
+                'sensor_id': rule.sensor.id,
+                'sensor': {
+                    'name': rule.sensor.name,
+                    'description': rule.sensor.description,
+                    'snmp': rule.sensor.snmp,
+                    'id': rule.sensor.id,
+                },
+                'critical_value': rule.critical_value,
+                'rule_id': rule.id,
             })
         return {"rules": snmp}
 
