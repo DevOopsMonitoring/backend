@@ -21,8 +21,9 @@ class ServerResource(Resource):
         schema = ServerSchema(partial=True)
         server = Server.query.get_or_404(server_id)
         server = schema.load(request.json, instance=server)
-        equipments = Equipment.query.filter(Equipment.id.in_(server.specifications_id)).all()
-        server.specifications += equipments
+        if hasattr(Server, 'specifications_id'):
+            equipments = Equipment.query.filter(Equipment.id.in_(server.specifications_id)).all()
+            server.specifications += equipments
 
         db.session.commit()
 
