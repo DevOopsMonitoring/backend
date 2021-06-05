@@ -9,4 +9,4 @@ class ReadData(db.Model):
     value = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
-        return f'<ReadData {self.sensor_id}-{self.server_id}, max: {self.critical_value}>'
+        return f'<ReadData {self.sensor_id}-{self.server_id}, value: {self.value}>'
