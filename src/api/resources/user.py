@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 from src.api.schemas import UserSchema
-from src.models import User, Server
+from src.models import User, Server, Company
 from src.extensions import db
 from src.commons.pagination import paginate
 
@@ -49,6 +49,14 @@ class UserList(Resource):
     def post(self):
         schema = UserSchema()
         user = schema.load(request.json)
+        print(request.json)
+        if not 'company_token' in request.json:
+            return {'msg': 'not company'}, 404
+        company = Company.query.filter_by(token=request.json['company_token']).first()
+        if not company:
+            return {'msg': 'not found company'}, 404
+        company.users.append(user)
+        user.company_id = company.id
 
         db.session.add(user)
         db.session.commit()

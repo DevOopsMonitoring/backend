@@ -4,6 +4,7 @@ from src.extensions import ma, db
 
 class CompanySchema(ma.SQLAlchemyAutoSchema):
     id = ma.Int(dump_only=True)
+    token = ma.String(dump_only=True)
 
     class Meta:
         model = Company

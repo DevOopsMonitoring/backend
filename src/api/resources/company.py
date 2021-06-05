@@ -36,7 +36,7 @@ class CompanyList(Resource):
     method_decorators = [jwt_required()]
 
     def get(self):
-        schema = CompanySchema(many=True, exclude=('phone', ))
+        schema = CompanySchema(many=True)
         query = Company.query
         for key, item in request.args.items():
             query = query.filter(getattr(Company, key).like(item))
