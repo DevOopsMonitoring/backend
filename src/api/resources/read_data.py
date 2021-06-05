@@ -18,7 +18,7 @@ class ReadDataResource(Resource):
         for d in schema.dump(data):
             tmp[d['sensor']['name']] = {
                 'critical_value': ReadingRule.query.filter_by(server_id=server_id, sensor_id=d['sensor']['id']).first().critical_value,
-                'values': [dt.value for dt in data if dt.sensor_id == d['sensor']['id']][:40],
+                'values': [dt.value for dt in data if dt.sensor_id == d['sensor']['id']][-40:],
                 'time': [dt.data.strftime('%H:%M:%S') for dt in data if dt.sensor_id == d['sensor']['id']][:40],
             }
 
