@@ -21,6 +21,7 @@ tox = "*"
 Flask-Cors = "*"
 psycopg2 = "*"
 fpdf = "*"
+requests = "*"
 
 [dev-packages]
 

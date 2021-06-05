@@ -6,7 +6,22 @@ from flask_restful import Resource
 
 from src.api.schemas import ReadingDataSchema
 from src.extensions import db
-from src.models import ReadData, ReadingRule, Server
+from src.models import ReadData, ReadingRule, Server, User, Sensor
+import requests
+from os import getenv
+
+
+def send_simple_message(email, server_name, value, sensor_name):
+    domain = getenv('mailgun_domain')
+    api = getenv('mailgun_api')
+
+    return requests.post(
+        f"https://api.mailgun.net/v3/{domain}.mailgun.org/messages",
+        auth=("api", api),
+        data={"from": f"Уведомление об ошибке <mailgun@{domain}.mailgun.org>",
+              "to": [email],
+              "subject": "Сервер в опасности!!!",
+              "text": f"Внимание! \n\nСервер {server_name} в опасности! Поканазия с датчика {sensor_name} достигло значения {value}"})
 
 
 class ReadDataResource(Resource):
@@ -32,9 +47,15 @@ class ReadDataResource(Resource):
         if not server:
             return {'msg': 'Token not found'}, 403
         json = request.get_json()
-        if not ReadingRule.query.filter_by(server_id=server.id, sensor_id=json['sensor_id']).count():
+        rule = ReadingRule.query.filter_by(server_id=server.id, sensor_id=json['sensor_id']).first()
+        if not rule:
             return {"msg": "Reading rule not found"}, 404
         data = ReadData(data=datetime.now(), server_id=server.id, sensor_id=json['sensor_id'], value=json['value'])
+
+        if json['value'] >= rule.critical_value:
+            email = User.query.filter_by(id=server.user_id).first().email
+            sensor_name = Sensor.query.filter_by(id=rule.sensor_id).first().name
+            send_simple_message(email, server.name, json['value'], sensor_name)
 
         db.session.add(data)
         db.session.commit()
