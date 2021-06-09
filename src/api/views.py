@@ -11,6 +11,7 @@ from src.api.resources import UserResource, UserList
 from src.api.resources import ReadDataResource
 from .resources import EquipmentList, EquipmentResource
 from .resources import reports
+from .resources import create_order
 
 
 blueprint = Blueprint("src", __name__, url_prefix="/api/v1")
@@ -53,6 +54,8 @@ blueprint.route("/reports/count_sensors_on_server", methods=["GET"])(reports.cou
 blueprint.route("/reports/count_sensors_on_server/print", methods=["GET"])(reports.count_sensors_on_server_print)
 
 blueprint.route("/reports/count_fail_on_server/print", methods=["GET"])(reports.count_fail_on_server)
+
+blueprint.route("/order/create", methods=["POST"])(create_order)
 
 @blueprint.errorhandler(ValidationError)
 def handle_marshmallow_error(e):

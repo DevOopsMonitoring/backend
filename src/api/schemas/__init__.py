@@ -6,6 +6,7 @@ from src.api.schemas.sensor import SensorSchema
 from src.api.schemas.reading_rule import ReadingRuleSchema
 from src.api.schemas.read_data import ReadingDataSchema
 from .equipment import EquipmentSchema
+from .order import OrderSchema
 
 
 __all__ = [
@@ -17,4 +18,5 @@ __all__ = [
     ReadingRuleSchema,
     ReadingDataSchema,
     EquipmentSchema,
+    OrderSchema,
 ]

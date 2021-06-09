@@ -7,6 +7,7 @@ from src.api.resources.user import UserResource, UserList
 from src.api.resources.read_data import ReadDataResource
 from .equipment import EquipmentResource, EquipmentList
 from . import reports
+from .order import create_order
 
 
 __all__ = [
@@ -35,5 +36,7 @@ __all__ = [
     EquipmentResource,
     EquipmentList,
 
-    reports
+    reports,
+
+    create_order,
 ]
